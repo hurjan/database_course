@@ -12,6 +12,10 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "..", "/course_data", SharedFoldersEnableSymlinksCreate: true
   config.vm.synced_folder ".", "/vagrant", SharedFoldersEnableSymlinksCreate: true
 
+  # Configuring shared_folder(s) for the libvirt provider using rsync
+  config.vm.synced_folder "..","/course_data", type: "rsync", rsync__auto: true, rsync__exclude: '*~'
+  config.vm.synced_folder ".","/vagrant", type: "rsync", rsync__auto: true, rsync__exclude: '*~'
+  
   # Configure port forwarding of (10001-10009/TCP) for accessing lab web applications running in VM
   (1..9).each do |port_suffix|
     port = 10000 + port_suffix
